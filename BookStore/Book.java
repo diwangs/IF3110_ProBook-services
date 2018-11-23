@@ -3,7 +3,78 @@ import java.net.*;
 import java.io.*;
 import java.sql.*;
 
-public class Buku {
+public class Book implements Serializable {
+	
+	private static final long serialVersionUID = -5577579081118070434L;
+	
+	private String id;
+	private String title;
+	private String publisher;
+	private String publishedDate;
+	private String imageUrl;
+	private String description;
+	private int price;
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getPublishedDate() {
+		return publishedDate;
+	}
+
+	public void setPublishedDate(String publishedDate) {
+		this.publishedDate = publishedDate;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+	
+	@Override
+	public String toString(){
+		return id+"\n"+title+"\n"+publisher+"\n"+publishedDate+"\n"+imageUrl+"\n"+description+"\n"+price;
+	}
 	
 	public static void main(String[] args) {
 		try{
