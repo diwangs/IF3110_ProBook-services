@@ -6,33 +6,32 @@ import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-//@WebService(endpointInterface = "BookService", targetNamespace="http://bookstore.com/endpoint", portName="BookPort", name="Book", serviceName="BookService")
-@WebService(targetNamespace="http://localhost:8888/ws/book")
+@WebService(endpointInterface = "BookService", targetNamespace="http://localhost:8888/ws/book", portName="BookPort", name="Book", serviceName="BookService")
 //@HandlerChain(file="handler-chain.xml")
-public class BookServiceMethods {
+public class BookServiceMethods implements BookServiceInterface {
 
 	private static Map<String,Book> books = new HashMap<String,Book>();
 	
-	@WebMethod
+	@Override
 	public boolean addBook(Book book) {
 		if(books.get(book.getId()) != null) return false;
 		books.put(book.getId(), book);
 		return true;
 	}
 
-	@WebMethod
+	@Override
 	public boolean deleteBook(String id) {
 		if(books.get(id) == null) return false;
 		books.remove(id);
 		return true;
 	}
 
-	@WebMethod
+	@Override
 	public Book getBook(String id) {
 		return books.get(id);
 	}
 
-	@WebMethod
+	@Override
 	public Book[] getAllBooks() {
 		Set<String> ids = books.keySet();
 		Book[] book = new Book[ids.size()];
