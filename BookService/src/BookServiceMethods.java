@@ -2,11 +2,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 //@WebService(endpointInterface = "BookService", targetNamespace="http://bookstore.com/endpoint", portName="BookPort", name="Book", serviceName="BookService")
 @WebService(targetNamespace="http://localhost:8888/ws/book")
+//@HandlerChain(file="handler-chain.xml")
 public class BookServiceMethods {
 
 	private static Map<String,Book> books = new HashMap<String,Book>();

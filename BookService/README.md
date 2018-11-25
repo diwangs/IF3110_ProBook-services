@@ -5,5 +5,5 @@
 
 # Run
 ```
-java -jar BookService.jar
+java -jar bin/BookService.jar
 ```
