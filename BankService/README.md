@@ -11,9 +11,7 @@
 ## ID validation
 #### Request
 ```
-{
-    "id"           : "<number>"
-}
+http://localhost:3000/api/validate_customer/<id>
 ```
 #### Response
 ```
