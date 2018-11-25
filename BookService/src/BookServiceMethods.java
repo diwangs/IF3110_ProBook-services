@@ -6,7 +6,7 @@ import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "BookService", targetNamespace="http://localhost:8888/ws/book", portName="BookPort", name="Book", serviceName="BookService")
+@WebService(endpointInterface="BookServiceInterface", targetNamespace="http://localhost:8888/ws/book", portName="BookPort", name="Book", serviceName="BookService")
 //@HandlerChain(file="handler-chain.xml")
 public class BookServiceMethods implements BookServiceInterface {
 
