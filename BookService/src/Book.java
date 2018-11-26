@@ -115,27 +115,29 @@ public class Book implements Serializable {
 	}
 
 	public static Book[] createBooksUsingJSON(JSONObject json) {
-		JSONArray arr = json.getJSONArray("items");
-		Book[] books = new Book[arr.length()];
-		for (int i = 0; i < arr.length(); i++) {
-			String bookId = arr.getJSONObject(i).getString("id");
-			String bookTitle = arr.getJSONObject(i).getJSONObject("volumeInfo").getString("title");
-			String bookPublisher = arr.getJSONObject(i).getJSONObject("volumeInfo").getString("publisher");
-			String bookPublishedDate = arr.getJSONObject(i).getJSONObject("volumeInfo").getString("publishedDate");
-			String bookImageUrl = arr.getJSONObject(i).getJSONObject("volumeInfo").getJSONObject("imageLinks")
-					.getString("thumbnail");
-			String bookDescription = fillBookDescription(arr.getJSONObject(i).getJSONObject("volumeInfo"));
-			int bookPrice = getBookPrice(bookId);
-
-			Book book = new Book(bookId, bookTitle, bookPublisher, bookPublishedDate, bookImageUrl, bookDescription,
-					bookPrice);
-			books[i] = book;
-
-			System.out.println(book);
-			System.out.println();
-
+		try {
+			JSONArray arr = json.getJSONArray("items");
+			Book[] books = new Book[arr.length()];
+			for (int i = 0; i < arr.length(); i++) {
+				String bookId = fillProperties(arr.getJSONObject(i), "id");
+				String bookTitle = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "title");
+				String bookPublisher = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "publisher");
+				String bookPublishedDate = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "publishedDate");
+				String bookImageUrl = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "thumbnail");
+				String bookDescription = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "description");
+				int bookPrice = getBookPrice(bookId);
+				
+				Book book = new Book(bookId, bookTitle, bookPublisher, bookPublishedDate, bookImageUrl, bookDescription,
+				bookPrice);
+				books[i] = book;
+				
+				// System.out.println(book);
+				// System.out.println();
+			}
+			return books;
+		} catch (Exception e) {
+			return new Book[0];
 		}
-		return books;
 	}
 
 	@Override
@@ -192,9 +194,10 @@ public class Book implements Serializable {
 		// }
 	// }
 
-	public static String fillBookDescription(JSONObject b) {
+	private static String fillProperties(JSONObject b, String props) {
 		try {
-			return b.getString("description");
+			if (props == "thumbnail") b = b.getJSONObject("imageLinks");
+			return b.getString(props);
 		} catch (Exception e) {
 			return "";
 		}

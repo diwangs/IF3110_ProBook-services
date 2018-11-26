@@ -19,4 +19,7 @@ public interface BookServiceInterface {
 	
 	@WebMethod
 	public Book[] getAllBooks();
+
+	@WebMethod
+	public Book[] getBooksByTitle(String title);
 }

@@ -43,4 +43,9 @@ public class BookServiceMethods implements BookServiceInterface {
 		return book;
 	}
 
+	@Override
+	public Book[] getBooksByTitle(String title) {
+		return Book.createBooksUsingJSON(Book.retrieveGoogleApi(title.replace(" ", "+")));
+	}
+
 }
