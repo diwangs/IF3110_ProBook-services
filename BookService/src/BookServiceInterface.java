@@ -22,4 +22,7 @@ public interface BookServiceInterface {
 
 	@WebMethod
 	public Book[] getBooksByTitle(String title);
+
+	@WebMethod
+	public boolean buyBook(String bookId, int userBankId, int numOfBooks);
 }

@@ -14,6 +14,7 @@ public class Book implements Serializable {
 	private String imageUrl;
 	private String description;
 	private int price;
+	private final static int bookStoreBankId = 0;
 
 	public Book() {
 		id = "";
@@ -122,15 +123,17 @@ public class Book implements Serializable {
 				String bookId = fillProperties(arr.getJSONObject(i), "id");
 				String bookTitle = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "title");
 				String bookPublisher = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "publisher");
-				String bookPublishedDate = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "publishedDate");
+				String bookPublishedDate = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"),
+						"publishedDate");
 				String bookImageUrl = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "thumbnail");
-				String bookDescription = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"), "description");
+				String bookDescription = fillProperties(arr.getJSONObject(i).getJSONObject("volumeInfo"),
+						"description");
 				int bookPrice = getBookPrice(bookId);
-				
+
 				Book book = new Book(bookId, bookTitle, bookPublisher, bookPublishedDate, bookImageUrl, bookDescription,
-				bookPrice);
+						bookPrice);
 				books[i] = book;
-				
+
 				System.out.println(book);
 				System.out.println();
 			}
@@ -140,63 +143,69 @@ public class Book implements Serializable {
 		}
 	}
 
+	public static int createTransaction(int userBankId, int amount) {
+		try {
+			String url = "http://localhost:3000/api/create_tx";
+			URL obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+			//add reuqest header
+			con.setRequestMethod("POST");
+
+			String urlParameters = "sender_id=" + userBankId + "&receiver_id=" + bookStoreBankId + "&amount=" + amount;
+			
+			// Send post request
+			con.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.writeBytes(urlParameters);
+			wr.flush();
+			wr.close();
+
+			int responseCode = con.getResponseCode();
+			System.out.println("\nSending 'POST' request to URL : " + url);
+			System.out.println("Post parameters : " + urlParameters);
+			System.out.println("Response Code : " + responseCode);
+
+			BufferedReader in = new BufferedReader(
+					new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+			
+			//print result
+			System.out.println(response.toString());
+
+			return 0;
+		} catch (Exception e) {
+			return 1;
+		}
+	}
+
+	public static int buyBook(String bookId, int userBankId, int numOfBooks) {
+		int bookPrice = getBookPrice(bookId);
+		if (bookPrice < 0) {
+			return 1;
+		} else {
+			int amount = bookPrice * numOfBooks;
+			createTransaction(userBankId, amount);
+		}
+		return 0;
+	}
+
 	@Override
 	public String toString() {
 		return id + "\n" + title + "\n" + publisher + "\n" + publishedDate + "\n" + imageUrl + "\n" + description + "\n"
 				+ price;
 	}
 
-	// public static void main(String[] args) {
-		// try {
-			// URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=" +
-			// "harry+potter");
-			// HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			// con.setRequestMethod("GET");
-
-			// BufferedReader in = new BufferedReader(new
-			// InputStreamReader(con.getInputStream()));
-			// String inputLine;
-			// StringBuffer content = new StringBuffer();
-			// while ((inputLine = in.readLine()) != null) {
-			// content.append(inputLine);
-			// }
-			// in.close();
-			// // System.out.println(content);
-			// con.disconnect();
-
-		// 	JSONObject obj = new JSONObject(content.toString());
-		// 	JSONArray arr = obj.getJSONArray("items");
-		// 	for (int i = 0; i < arr.length(); i++) {
-		// 		String bookId = arr.getJSONObject(i).getString("id");
-		// 		String bookTitle = arr.getJSONObject(i).getJSONObject("volumeInfo").getString("title");
-		// 		String bookPublisher = arr.getJSONObject(i).getJSONObject("volumeInfo").getString("publisher");
-		// 		String bookPublishedDate = arr.getJSONObject(i).getJSONObject("volumeInfo").getString("publishedDate");
-		// 		String bookImage = arr.getJSONObject(i).getJSONObject("volumeInfo").getJSONObject("imageLinks")
-		// 				.getString("thumbnail");
-		// 		String bookDescription = fillBookDescription(arr.getJSONObject(i).getJSONObject("volumeInfo"));
-		// 		String bookPrice = String.valueOf(getBookPrice(bookId));
-		// 		if (bookPrice.equals("-1")) {
-		// 			bookPrice = "Not For Sale";
-		// 		}
-
-		// 		System.out.println(i);
-		// 		System.out.println(bookId);
-		// 		System.out.println(bookTitle);
-		// 		System.out.println(bookPublisher);
-		// 		System.out.println(bookPublishedDate);
-		// 		System.out.println(bookImage);
-		// 		System.out.println(bookDescription);
-		// 		System.out.println(bookPrice);
-		// 		System.out.println();
-		// 	}
-		// } catch (Exception e) {
-		// 	System.out.println(e.getMessage());
-		// }
-	// }
-
 	private static String fillProperties(JSONObject b, String props) {
 		try {
-			if (props == "thumbnail") b = b.getJSONObject("imageLinks");
+			if (props == "thumbnail")
+				b = b.getJSONObject("imageLinks");
 			return b.getString(props);
 		} catch (Exception e) {
 			return "";
