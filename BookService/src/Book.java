@@ -209,7 +209,7 @@ public class Book implements Serializable {
 			String myDriver = "org.gjt.mm.mysql.Driver";
 			String myUrl = "jdbc:mysql://localhost/bookstore?autoReconnect=true&useSSL=false";
 			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root", "1234");
+			Connection conn = DriverManager.getConnection(myUrl, "root", "");
 
 			// our SQL SELECT query.
 			// if you only need a few columns, specify them by name instead of using "*"
