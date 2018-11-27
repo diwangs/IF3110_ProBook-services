@@ -131,8 +131,8 @@ public class Book implements Serializable {
 				bookPrice);
 				books[i] = book;
 				
-				// System.out.println(book);
-				// System.out.println();
+				System.out.println(book);
+				System.out.println();
 			}
 			return books;
 		} catch (Exception e) {
