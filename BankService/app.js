@@ -8,7 +8,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '',
+  password : '12345678',
   database : 'bank',
   port     : '3306',
   multipleStatements: true
@@ -38,6 +38,7 @@ app.post("/api/create_tx", (req, res) => {
           connection.query('UPDATE customer SET balance = balance -'+req.body.amount+' WHERE id='+req.body.sender_id+'; UPDATE customer SET balance = balance +'+req.body.amount+' WHERE id='+req.body.receiver_id+'; INSERT INTO tx VALUES('+req.body.sender_id+','+req.body.receiver_id+', NOW(),'+ req.body.amount+');' , function (error, results, fields){
             if (error) throw error;
             res.json({result:true})
+            console.log(res);
           })
         } else {
           res.json({result:false, reason:"insufficient balance"})
@@ -46,6 +47,5 @@ app.post("/api/create_tx", (req, res) => {
     })
 })
 
-// 'id=0;UPDATE customer SET balance = balance +100WHERE id=1;INSERT INTO tx VALUES('
 app.listen(3000, () => console.log("Listening at port 3000..."));
 
