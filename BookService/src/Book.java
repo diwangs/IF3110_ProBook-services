@@ -181,13 +181,16 @@ public class Book implements Serializable {
 
 	public static Book[] constructBooks(JSONObject json) {
 		try {
-			JSONArray arr = json.getJSONArray("items");
-			Book[] books = new Book[arr.length()];
-			for (int i = 0; i < arr.length(); i++) {
-				Book book = constructBook(arr.getJSONObject(i));
-				books[i] = book;
+			if json.has("items") {
+				JSONArray arr = json.getJSONArray("items");
+				Book[] books = new Book[arr.length()];
+				for (int i = 0; i < arr.length(); i++) {
+					Book book = constructBook(arr.getJSONObject(i));
+					books[i] = book;
+				}
+				return books;
 			}
-			return books;
+			return new Book[0];
 		} catch (Exception e) {
 			return new Book[0];
 		}
