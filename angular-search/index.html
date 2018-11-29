@@ -11,15 +11,16 @@
 </head>
 <body ng-controller="bookCtrl">
     <!-- Search Box -->
-    <h4>Insert search value here:</h4>
+    <h4>Search:</h4>
     <input type="text" ng-change="delayedSearch(searchTerms)" ng-model="searchTerms">
+    <!-- Display this if not found -->
+    <h5 ng-show="isSearching">Searching...</h5>
+    <h5 ng-show="!isSearching && searchTerms && !searchResults.length">Not Found</h5>
     <!-- Search Result -->
     <ul>
         <li ng-repeat="searchResult in searchResults">
-            {{ searchResult }}
+            {{ searchResult.title }}
         </li>
     </ul>
-    <!-- Display this if not found -->
-    <h5 ng-show="!searchResults.length && searchTerms && hasSearched">Not Found</h5>
 </body>
 </html>
