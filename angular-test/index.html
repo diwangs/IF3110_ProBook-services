@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="book">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="controller.js"></script>
+ 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+</head>
+<body ng-controller="bookCtrl">
+    <!-- Search Box -->
+    <h4>Insert search value here:</h4>
+    <input type="text" ng-change="delayedSearch(searchTerms)" ng-model="searchTerms">
+    <!-- Search Result -->
+    <ul>
+        <li ng-repeat="searchResult in searchResults">
+            {{ searchResult }}
+        </li>
+    </ul>
+    <!-- Display this if not found -->
+    <h5 ng-show="!searchResults.length && searchTerms && hasSearched">Not Found</h5>
+</body>
+</html>
