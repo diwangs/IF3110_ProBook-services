@@ -296,9 +296,9 @@ public class Book implements Serializable {
 		}
 	}
 
-	// @Override
-	// public String toString() {
-	// 	return id + "\n" + title + "\n" + "\n" + imageUrl + "\n" + description + "\n"
-	// 			+ price;
-	// }
+	@Override
+	public String toString() {
+		return id + "\n" + title + "\n" + "\n" + imageUrl + "\n" + description + "\n"
+				+ price;
+	}
 }

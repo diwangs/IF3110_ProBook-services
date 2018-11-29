@@ -10,7 +10,7 @@ public interface BookServiceInterface {
 
 	@WebMethod
 	public Book getBookById(String id);
-
+	
 	@WebMethod
 	public Book[] getBooksByTitle(String title);
 
