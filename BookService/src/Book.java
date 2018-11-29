@@ -95,7 +95,7 @@ public class Book implements Serializable {
 
 	public static JSONObject retrieveGoogleApi(String volume) {
 		try {
-			URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=" + volume);
+			URL url = new URL("https://www.googleapis.com/books/v1/volu mes?q=" + volume);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 
@@ -143,17 +143,17 @@ public class Book implements Serializable {
 		}
 	}
 
-	public static int createTransaction(int userBankId, int amount) {
+	public static JSONObject createTransaction(int userBankId, int amount) {
 		try {
 			String url = "http://localhost:3000/api/create_tx";
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-			//add reuqest header
+			// add reuqest header
 			con.setRequestMethod("POST");
 
 			String urlParameters = "sender_id=" + userBankId + "&receiver_id=" + bookStoreBankId + "&amount=" + amount;
-			
+
 			// Send post request
 			con.setDoOutput(true);
 			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -166,32 +166,36 @@ public class Book implements Serializable {
 			System.out.println("Post parameters : " + urlParameters);
 			System.out.println("Response Code : " + responseCode);
 
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(con.getInputStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String inputLine;
-			StringBuffer response = new StringBuffer();
-
+			StringBuffer content = new StringBuffer();
 			while ((inputLine = in.readLine()) != null) {
-				response.append(inputLine);
+				content.append(inputLine);
 			}
 			in.close();
-			
-			//print result
-			System.out.println(response.toString());
-
-			return 0;
+			// print result
+			con.disconnect();
+			return new JSONObject(content.toString());
 		} catch (Exception e) {
-			return 1;
+			System.err.println("Caught an error!");
+			System.err.println(e.getMessage());
+			return null;
 		}
 	}
 
 	public static int buyBook(String bookId, int userBankId, int numOfBooks) {
 		int bookPrice = getBookPrice(bookId);
 		if (bookPrice < 0) {
+			System.out.println("Error: Book price not found");
 			return 1;
 		} else {
 			int amount = bookPrice * numOfBooks;
-			createTransaction(userBankId, amount);
+			JSONObject json = createTransaction(userBankId, amount);
+			String result = fillProperties(json, "result");
+			if (result.compareTo("false") == 0) {
+				System.out.println("Error: " + fillProperties(json, "reason"));
+				return 1;
+			}
 		}
 		return 0;
 	}
