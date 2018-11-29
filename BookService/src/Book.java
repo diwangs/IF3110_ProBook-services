@@ -141,7 +141,7 @@ public class Book implements Serializable {
 
 	public static Book constructBook(JSONObject json) {
 		try {
-			String bookId = arr.getString("id");
+			String bookId = json.getString("id");
 			String bookTitle = json.getJSONObject("volumeInfo").getString("title");
 			JSONArray authors = json.getJSONObject("volumeInfo").getJSONArray("authors");
 			String[] bookAuthors = new String[authors.length()];
@@ -296,9 +296,9 @@ public class Book implements Serializable {
 		}
 	}
 
-	@Override
-	public String toString() {
-		return id + "\n" + title + "\n" + publisher + "\n" + publishedDate + "\n" + imageUrl + "\n" + description + "\n"
-				+ price;
-	}
+	// @Override
+	// public String toString() {
+	// 	return id + "\n" + title + "\n" + "\n" + imageUrl + "\n" + description + "\n"
+	// 			+ price;
+	// }
 }
