@@ -186,7 +186,7 @@ public class Book implements Serializable {
 	public static int buyBook(String bookId, int userBankId, int numOfBooks) {
 		int bookPrice = getBookPrice(bookId);
 		if (bookPrice < 0) {
-			System.out.println("Error: Book price not found");
+			System.err.println("Error: Book price not found");
 			return 1;
 		} else {
 			int amount = bookPrice * numOfBooks;
@@ -196,14 +196,32 @@ public class Book implements Serializable {
 				System.out.println("Error: " + fillProperties(json, "reason"));
 				return 1;
 			}
+			
 		}
 		return 0;
 	}
 
-	@Override
-	public String toString() {
-		return id + "\n" + title + "\n" + publisher + "\n" + publishedDate + "\n" + imageUrl + "\n" + description + "\n"
-				+ price;
+	public int updateBookSale(String bookId, int numOfBooks) {
+		try {
+			// create our mysql database connection
+			String myDriver = "org.gjt.mm.mysql.Driver";
+			String myUrl = "jdbc:mysql://localhost/bookstore?autoReconnect=true&useSSL=false";
+			Class.forName(myDriver);
+			Connection conn = DriverManager.getConnection(myUrl, "root", "12345678");
+
+			String query = "UPDATE book SET book.sale = book.sale + " + numOfBooks + " WHERE book.id='" + bookId + "'";
+
+			Statement st = conn.createStatement();
+
+			st.executeQuery(query);
+
+			st.close();
+			return 0;
+		} catch (Exception e) {
+			System.err.println("Got an exception! ");
+			System.err.println(e.getMessage());
+			return 1;
+		}
 	}
 
 	private static String fillProperties(JSONObject b, String props) {
@@ -224,22 +242,16 @@ public class Book implements Serializable {
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "12345678");
 
-			// our SQL SELECT query.
-			// if you only need a few columns, specify them by name instead of using "*"
-			String query = "SELECT bookprice FROM book WHERE book.bookid='" + bookId + "'";
+			String query = "SELECT book.price FROM book WHERE book.id='" + bookId + "'";
 
-			// create the java statement
 			Statement st = conn.createStatement();
 
-			// execute the query, and get a java resultset
 			ResultSet rs = st.executeQuery(query);
-
-			// iterate through the java resultset
 
 			int bookPrice = -1;
 
 			while (rs.next()) {
-				bookPrice = rs.getInt("bookprice");
+				bookPrice = rs.getInt("price");
 			}
 			st.close();
 			return bookPrice;
@@ -248,5 +260,11 @@ public class Book implements Serializable {
 			System.err.println(e.getMessage());
 			return -2;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return id + "\n" + title + "\n" + publisher + "\n" + publishedDate + "\n" + imageUrl + "\n" + description + "\n"
+				+ price;
 	}
 }
