@@ -95,7 +95,7 @@ public class Book implements Serializable {
 
 	public static JSONObject retrieveGoogleApi(String volume) {
 		try {
-			URL url = new URL("https://www.googleapis.com/books/v1/volu mes?q=" + volume);
+			URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=" + volume);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 
@@ -109,7 +109,7 @@ public class Book implements Serializable {
 			con.disconnect();
 			return new JSONObject(content.toString());
 		} catch (Exception e) {
-			System.err.println("Caught an error!");
+			System.err.println("Caught an error in retrieveGoogleApi!");
 			System.err.println(e.getMessage());
 			return null;
 		}
@@ -148,24 +148,25 @@ public class Book implements Serializable {
 			String url = "http://localhost:3000/api/create_tx";
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-			// add reuqest header
-			con.setRequestMethod("POST");
-
-			String urlParameters = "sender_id=" + userBankId + "&receiver_id=" + bookStoreBankId + "&amount=" + amount;
-
-			// Send post request
 			con.setDoOutput(true);
-			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-			wr.writeBytes(urlParameters);
+			con.setDoInput(true);
+			con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+			con.setRequestProperty("Accept", "application/json");
+			con.setRequestMethod("POST");
+			System.out.println("aaa3");
+
+			JSONObject tx = new JSONObject();
+			tx.put("sender_id", userBankId);
+			tx.put("receiver_id", bookStoreBankId);
+			tx.put("amount", amount);
+			// Send post request
+
+			OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+			wr.write(tx.toString());
 			wr.flush();
 			wr.close();
 
-			int responseCode = con.getResponseCode();
-			System.out.println("\nSending 'POST' request to URL : " + url);
-			System.out.println("Post parameters : " + urlParameters);
-			System.out.println("Response Code : " + responseCode);
-
+			// get Response
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String inputLine;
 			StringBuffer content = new StringBuffer();
@@ -174,10 +175,11 @@ public class Book implements Serializable {
 			}
 			in.close();
 			// print result
+			System.out.println("" + content.toString());
 			con.disconnect();
 			return new JSONObject(content.toString());
 		} catch (Exception e) {
-			System.err.println("Caught an error!");
+			System.err.println("Caught an error in createTransaction!");
 			System.err.println(e.getMessage());
 			return null;
 		}
@@ -196,7 +198,7 @@ public class Book implements Serializable {
 				System.out.println("Error: " + fillProperties(json, "reason"));
 				return 1;
 			}
-			
+
 		}
 		return 0;
 	}
