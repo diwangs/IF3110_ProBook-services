@@ -143,24 +143,38 @@ public class Book implements Serializable {
 		try {
 			String bookId = json.getString("id");
 			String bookTitle = json.getJSONObject("volumeInfo").getString("title");
-			JSONArray authors = json.getJSONObject("volumeInfo").getJSONArray("authors");
-			String[] bookAuthors = new String[authors.length()];
-			for (int i = 0; i < authors.length(); i++) {
-				bookAuthors[i] = authors.getJSONObject(i).toString();
+			String[] bookAuthors = new String[0];
+			if (json.getJSONObject("volumeInfo").has("authors")) {
+				JSONArray authors = json.getJSONObject("volumeInfo").getJSONArray("authors");
+				bookAuthors = new String[authors.length()];
+				for (int i = 0; i < authors.length(); i++) {
+					bookAuthors[i] = authors.getString(i);
+				}
 			}
-			String bookImageUrl = json.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
-			String bookDescription = json.getJSONObject("volumeInfo").getString("description");
-			JSONArray categories = json.getJSONObject("volumeInfo").getJSONArray("categories");
-			String[] bookCategories = new String[categories.length()];
-			for (int i = 0; i < categories.length(); i++) {
-				bookCategories[i] = categories.getJSONObject(i).toString();
-				System.out.println("bookAuthors = " + bookCategories[i]);
+			String bookImageUrl = "";
+			if (json.getJSONObject("volumeInfo").has("imageLinks")) {
+				if (json.getJSONObject("volumeInfo").getJSONObject("imageLinks").has("thumbnail")) {
+					bookImageUrl = json.getJSONObject("volumeInfo").getJSONObject("imageLinks").getString("thumbnail");
+				}
+			}
+			String bookDescription = "";
+			if (json.getJSONObject("volumeInfo").has("description")) {
+				bookDescription = json.getJSONObject("volumeInfo").getString("description");
+			}
+			String[] bookCategories = new String[0];
+			if (json.getJSONObject("volumeInfo").has("categories")) {
+				JSONArray categories = json.getJSONObject("volumeInfo").getJSONArray("categories");
+				bookCategories = new String[categories.length()];
+				for (int i = 0; i < categories.length(); i++) {
+					bookCategories[i] = categories.getString(i);
+				}
 			}
 			int bookPrice = getBookPrice(bookId);
-
-			Book book = new Book(bookId, bookTitle, bookAuthors, bookImageUrl, bookDescription, bookCategories, bookPrice);
+			Book book = new Book(bookId, bookTitle, bookAuthors, bookImageUrl, bookDescription, bookCategories,
+					bookPrice);
 			return book;
 		} catch (Exception e) {
+			System.err.println("Error!!!! " + e.getMessage());
 			return new Book();
 		}
 	}
@@ -195,7 +209,7 @@ public class Book implements Serializable {
 			tx.put("sender_id", userBankId);
 			tx.put("receiver_id", BOOKSTOREBANKID);
 			tx.put("amount", amount);
-			
+
 			// Send post request
 			OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
 			wr.write(tx.toString());
@@ -298,7 +312,7 @@ public class Book implements Serializable {
 
 	@Override
 	public String toString() {
-		return id + "\n" + title + "\n" + "\n" + imageUrl + "\n" + description + "\n"
+		return id + "\n" + title + "\n" + authors + "\n" + imageUrl + "\n" + description + "\n" + categories + "\n"
 				+ price;
 	}
 }
