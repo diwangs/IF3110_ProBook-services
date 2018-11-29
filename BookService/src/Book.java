@@ -198,12 +198,11 @@ public class Book implements Serializable {
 				System.out.println("Error: " + fillProperties(json, "reason"));
 				return 1;
 			}
-
+			return updateBookSale(bookId, numOfBooks);
 		}
-		return 0;
 	}
 
-	public int updateBookSale(String bookId, int numOfBooks) {
+	public static int updateBookSale(String bookId, int numOfBooks) {
 		try {
 			// create our mysql database connection
 			String myDriver = "org.gjt.mm.mysql.Driver";
@@ -211,13 +210,12 @@ public class Book implements Serializable {
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "12345678");
 
-			String query = "UPDATE book SET book.sale = book.sale + " + numOfBooks + " WHERE book.id='" + bookId + "'";
-
-			Statement st = conn.createStatement();
-
-			st.executeQuery(query);
-
-			st.close();
+			PreparedStatement ps = conn.prepareStatement("UPDATE book SET book.sale = book.sale + ? WHERE book.id= ? ");
+			ps.setInt(1, numOfBooks);
+			ps.setString(2, bookId);
+			
+			ps.executeUpdate();
+			ps.close();
 			return 0;
 		} catch (Exception e) {
 			System.err.println("Got an exception! ");
