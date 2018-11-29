@@ -8,7 +8,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : '12345678',
+  password : '',
   database : 'bank',
   port     : '3306',
   multipleStatements: true
@@ -21,6 +21,7 @@ app.get("/api/validate_customer/:id", (req, res) => {
     connection.query('SELECT * FROM customer WHERE id='+req.params.id, function (error, results, fields) {
         if (error) throw error;
         // If not found, return false
+        res.setHeader("Access-Control-Allow-Origin", "*")
         if (typeof results[0] == 'undefined') res.json({result:false, reason:"id not found"})
         // if found, return true
         else res.json({result:true})
