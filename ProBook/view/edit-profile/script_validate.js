@@ -1,8 +1,9 @@
 var searchDelay = null
 
-var isCardValid = false
+var isCardValid = true
 
 function validate(id) {
+    isCardValid = false;
     clearTimeout(searchDelay)
     setTimeout(() => {
         req = new XMLHttpRequest()

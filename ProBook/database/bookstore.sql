@@ -19,28 +19,28 @@
 -- Table structure for table `book`
 --
 
-DROP TABLE IF EXISTS `book`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `book` (
-  `book_id` varchar(255) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `author` varchar(100) NOT NULL,
-  `description` text,
-  `image_link` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`book_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- DROP TABLE IF EXISTS `book`;
+-- /*!40101 SET @saved_cs_client     = @@character_set_client */;
+--  SET character_set_client = utf8mb4 ;
+-- CREATE TABLE `book` (
+--   `book_id` varchar(255) NOT NULL,
+--   `title` varchar(50) NOT NULL,
+--   `author` varchar(100) NOT NULL,
+--   `description` text,
+--   `image_link` varchar(255) DEFAULT NULL,
+--   PRIMARY KEY (`book_id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+-- /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `book`
 --
 
-LOCK TABLES `book` WRITE;
-/*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES ('1','Interaction Design','Jennifer Preece','Buku mata kuliah Interaksi Manusia Komputer','https://media.wiley.com/product_data/coverImage300/51/11190207/1119020751.jpg'),('4','Artificial Intelligence','Stuart Russel','Buku mata kuliah Inteligensi Buatan','https://www.pearsonhighered.com/assets/bigcovers/0/1/3/3/0133001989.jpg');
-/*!40000 ALTER TABLE `book` ENABLE KEYS */;
-UNLOCK TABLES;
+-- LOCK TABLES `book` WRITE;
+-- /*!40000 ALTER TABLE `book` DISABLE KEYS */;
+-- INSERT INTO `book` VALUES ('1','Interaction Design','Jennifer Preece','Buku mata kuliah Interaksi Manusia Komputer','https://media.wiley.com/product_data/coverImage300/51/11190207/1119020751.jpg'),('4','Artificial Intelligence','Stuart Russel','Buku mata kuliah Inteligensi Buatan','https://www.pearsonhighered.com/assets/bigcovers/0/1/3/3/0133001989.jpg');
+-- /*!40000 ALTER TABLE `book` ENABLE KEYS */;
+-- UNLOCK TABLES;
 
 --
 -- Table structure for table `orders`
