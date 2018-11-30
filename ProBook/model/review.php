@@ -1,15 +1,13 @@
 <?php
 include_once($_SERVER["DOCUMENT_ROOT"] . "/model/database.php");
 
-function getBookDetail($orderId) {
+function getOrderDetail($orderId) {
     global $mysqli;
     $query = "
-      SELECT DISTINCT
-        book.title,
-        book.author,
-        book.image_link
+      SELECT
+        *
       FROM
-        orders INNER JOIN  book ON orders.book_id = book.book_id
+        orders
       WHERE order_id=" . $orderId . ";
     ";
 

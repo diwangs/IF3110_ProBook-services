@@ -1,6 +1,7 @@
 <?php
     include ($_SERVER["DOCUMENT_ROOT"] . "/model/login.php");
     include ($_SERVER["DOCUMENT_ROOT"] . "/model/review.php");
+    include ($_SERVER["DOCUMENT_ROOT"] . "/model/book-detail.php");
     
     if (!isTokenValid($_COOKIE['accessToken'])){
         exit();
@@ -17,15 +18,19 @@
     
     $orderId = $_GET["order-id"];
 
-    $bookDetail = getBookDetail($orderId);
+    $orderDetail = getOrderDetail($orderId);
+    var_dump($orderDetail);
+    $bookDetail = getBookDetail($orderDetail["book_id"]);
+    echo "\n\n";
+    var_dump($bookDetail);
 
     $bookDetailView = '
     <div class="detail-holder">
         <div class="book-title"><h1>' . $bookDetail["title"] . '</h1></div>
-        <div class="book-detail"> </div><h3>' . $bookDetail["author"] . '</h3>
+        <div class="book-detail"> </div><h3>' . $bookDetail["authors"] . '</h3>
     </div>
     <div class ="image-holder">
-        <img src="' . $bookDetail["image_link"] . '" alt="">
+        <img src="' . $bookDetail["imageUrl"] . '" alt="">
     </div>'
 ?>
 

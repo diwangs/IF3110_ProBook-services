@@ -9,12 +9,9 @@ function getHistory($userId) {
         orders.num_book,
         orders.order_date,
         review.rating,
-        book.book_id,
-        book.title,
-        book.image_link
+        orders.book_id
       FROM
         orders LEFT OUTER JOIN review ON orders.order_id = review.order_id
-        INNER JOIN book ON orders.book_id = book.book_id
       WHERE user_id=" . $userId . "
       ORDER BY orders.order_id DESC;
     ";
