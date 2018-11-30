@@ -48,7 +48,7 @@
                                         <div class="left-order-details">{{ searchResult.description }}</div>
                                 </div>
                                 <div class="right-text-holder">
-                                        <div class="detail-button"><a href="">Detail</a></div>
+                                        <div class="detail-button"><a href="/view/book-detail?book-id={{ searchResult.id }}">Detail</a></div>
                                 </div>
                             </div>
                         </li>

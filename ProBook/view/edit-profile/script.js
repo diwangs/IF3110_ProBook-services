@@ -22,7 +22,7 @@ var validations = [
 
 function checkSubmitOk() {
     for (var i = 0; i < fields.length; i++) {
-        if (fields[i].value === '' || (fields[i].type === 'tel' && (fields[i].value.length < 9 || fields[i].value.length > 12))) {
+        if (!isCardValid || field.value === '' || (field.type === 'tel' && (!(/^[0-9]*$/.test(field.value)) || field.value.length < 9 || field.value.length > 12)) || (field.type === 'card' && (!(/^[0-9]*$/.test(field.value))))) {
             return false;
         }
     }
@@ -30,7 +30,7 @@ function checkSubmitOk() {
 }
 
 function validateInput(field, validation) {
-    if (field.value === '' || (field.type === 'tel' && (field.value.length < 9 || field.value.length > 12))) {
+    if (!isCardValid || field.value === '' || (field.type === 'tel' && (!(/^[0-9]*$/.test(field.value)) || field.value.length < 9 || field.value.length > 12)) || (field.type === 'card' && (!(/^[0-9]*$/.test(field.value))))) {
         validation.classList.remove('hidden');
         submitButton.disabled = true;
     } else {

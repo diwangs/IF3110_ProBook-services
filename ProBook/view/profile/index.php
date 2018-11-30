@@ -78,6 +78,16 @@
                             <?php echo $user["phone_num"] ?>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <img class="icon" src="/assets/images/credit-card.png"/>
+                            Card Number
+
+                        </td>
+                        <td>
+                            <?php echo $user["card_num"] ?>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

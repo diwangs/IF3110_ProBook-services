@@ -31,6 +31,7 @@
         <link rel="stylesheet" href="/assets/global/global.css">
         <link rel="stylesheet" href="/view/edit-profile/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <script src="/view/edit-profile/script_validate.js"></script>
     </head>
 
     <body>
@@ -76,7 +77,16 @@
                             </td>
                             <td>
                                 <input type="tel" id="phone-number" name="phoneNumber" value="<?php echo $user["phone_num"] ?>">
-                                <div class="validation phone-number hidden">Phone Number should be between 9 to 12</div>
+                                <div class="validation phone-number hidden">Phone Number should be number between 9 to 12</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="card-number">Card Number</label>
+                            </td>
+                            <td>
+                                <input type="card" id="card-number" name="cardNumber" onchange="validate(this.value)" value="<?php echo $user["card_num"] ?>">
+                                <div id="err_msg" class="validation card-number hidden">Card Number not valid</div>
                             </td>
                         </tr>
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Register</title>
     <link type="text/css" rel="stylesheet" href="/view/register/style.css">
+    <script type="text/javascript" src="/view/register/script_validate.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Pathway+Gothic+One" rel="stylesheet">
 </head>
 <body>
