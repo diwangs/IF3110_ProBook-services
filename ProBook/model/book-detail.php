@@ -3,22 +3,18 @@
 include_once($_SERVER["DOCUMENT_ROOT"] . "/model/database.php");
 
 function getBookDetail($bookId) {
-    global $mysqli;
+    $client = new SoapClient("http://localhost:8888/ws/book?wsdl");
+    $params = array("id" => $bookId);
+    // Convert stdClass to array using (array)
+    $response = (array) $client->__soapCall("getBookById", $params);
+    return $response;
+}
 
-    $query="
-    SELECT book_id, title, author, description, image_link, AVG(rating) as rating
-    FROM review NATURAL JOIN orders RIGHT OUTER JOIN book USING (book_id)
-    WHERE book_id = " . $bookId . "
-    GROUP BY book.book_id; 
-    ";
-    
-    $result = $mysqli->query($query);
-
-    if ($result->num_rows > 0) {
-        return $result->fetch_assoc();
-    } else {
-        return null;
-    }
+function createTransaction($bookId, $userBankId, $numOfBooks) {
+    $client = new SoapClient("http://localhost:8888/ws/book?wsdl");
+    $params = array("bookId" => $bookId, "userBankId" => $userBankId, "numOfBooks" => $numOfBooks);
+    $response = (array) $client->__soapCall("buyBook", $params);
+    return $response;
 }
 
 function getBookReview($bookId) {
@@ -38,21 +34,26 @@ function getBookReview($bookId) {
     return $result;
 }
 
-function createOrder($userId, $bookId, $numBook) {
+function createOrder($userId, $bookId, $userBankId, $numBook) {
     global $mysqli;
 
-    $date = date("Y-m-d");
+    $transaction = createTransaction($bookId, $userBankId, $numBook);
+    if ($transaction[0] == false) {
+        return null;
+    } else {
+        $date = date("Y-m-d");
 
-    $query="
-        INSERT INTO orders (user_id, book_id, num_book, order_date)
-        VALUES (" . $userId . ", " . $bookId . ", " . $numBook . ", '" . $date . "');
+        $query="
+            INSERT INTO orders (user_id, book_id, num_book, order_date)
+            VALUES (" . $userId . ", '" . $bookId . "', " . $numBook . ", '" . $date . "');
+            ";
+        $result = $mysqli->query($query);
+        $query="
+            SELECT LAST_INSERT_ID();
         ";
-    $result = $mysqli->query($query);
-    $query="
-        SELECT LAST_INSERT_ID();
-    ";
-    $result = $mysqli->query($query);
-    return $result->fetch_assoc()["LAST_INSERT_ID()"];
+        $result = $mysqli->query($query);
+        return $result->fetch_assoc()["LAST_INSERT_ID()"];
+    }    
 }
 
 ?>

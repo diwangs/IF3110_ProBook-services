@@ -110,6 +110,7 @@ public class Book implements Serializable {
 			con.disconnect();
 			return new JSONObject(content.toString());
 		} catch (Exception e) {
+			System.err.println("The ID is :" + id + "#");
 			System.err.println("Caught an error in retrieveBookById!");
 			System.err.println(e.getMessage());
 			return null;

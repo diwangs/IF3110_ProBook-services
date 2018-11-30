@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS `bookservice`.`book_category` ;
 
 CREATE TABLE IF NOT EXISTS `bookservice`.`book_category` (
   `book_id` VARCHAR(15) NOT NULL,
-  `category` VARCHAR(25) NOT NULL,
+  `category` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`book_id`, `category`))
 ENGINE = InnoDB;
 
