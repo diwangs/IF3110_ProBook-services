@@ -46,7 +46,8 @@ try {
     if ($_FILES["profilePicture"]["error"] === 0) {
         uploadPicture();
     }
-    updateProfile($_POST["userId"], "/assets/profile-pictures/" . $_POST["userId"] . ".jpg" , $_POST["name"], $_POST["address"], $_POST["phoneNumber"]);
+    file_put_contents("php://stdout", var_dump($_POST["cardNumber"]));
+    updateProfile($_POST["userId"], "/assets/profile-pictures/" . $_POST["userId"] . ".jpg" , $_POST["name"], $_POST["address"], $_POST["phoneNumber"], $_POST["cardNumber"]);
     header("Location: /view/profile");
     exit();
 } catch (Exception $e) {
