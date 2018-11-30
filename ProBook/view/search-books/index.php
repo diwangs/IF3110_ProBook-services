@@ -17,8 +17,8 @@
 
 <html lang="en" ng-app="book">
     <head>
-         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-        <script src="controller.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script src="/view/search-books/controller.js"></script>
      
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +35,7 @@
             <div class="content">
                 <h1>Search Book</h1>
                 <form>
-                    <input type="text" id="search-bar" placeholder="Input search terms..." name="search-txt"/ ng-change="delayedSearch(searchTerms)" ng-model="searchTerms">
+                    <input type="text" id="search-bar" placeholder="Input search terms..." name="search-txt" ng-change="delayedSearch(searchTerms)" ng-model="searchTerms">
                     <h5 ng-show="isSearching">Searching...</h5>
                     <h5 ng-show="!isSearching && searchTerms && !searchResults.length">Not Found</h5>
                     <ul>

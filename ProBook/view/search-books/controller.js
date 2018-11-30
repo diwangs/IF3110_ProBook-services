@@ -19,7 +19,7 @@ bookNgApp.controller("bookCtrl", ($scope, $http) => {
                     $scope.$apply();
                 }
                 // Change the php file address if necessary
-                req.open("GET", "http://localhost/searchBooks.php?q=" + encodeURIComponent(searchTerms), true)
+                req.open("GET", "http://localhost/view/search-books/searchBooks.php?q=" + encodeURIComponent(searchTerms), true)
                 req.send()
             } else {
                 // else, do nothing
