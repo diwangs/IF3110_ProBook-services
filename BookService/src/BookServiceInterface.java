@@ -15,5 +15,8 @@ public interface BookServiceInterface {
 	public Book[] getBooksByTitle(String title);
 
 	@WebMethod
+	public Book getRandomBookByCategories(String categories);
+
+	@WebMethod
 	public boolean buyBook(String bookId, int userBankId, int numOfBooks);
 }

@@ -117,6 +117,19 @@ public class Book implements Serializable {
 		}
 	}
 
+	public static JSONObject retrieveBookByCategories(String categories) {
+		JSONObject json = retrieveBooksByTitle("subject:" + categories);
+		try {
+			if (json.has("items")) {
+				JSONArray arr = json.getJSONArray("items");
+				return arr.getJSONObject(0);
+			}
+			return null;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	public static JSONObject retrieveBooksByTitle(String title) {
 		try {
 			URL url = new URL(
