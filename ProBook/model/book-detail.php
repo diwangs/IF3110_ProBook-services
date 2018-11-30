@@ -1,21 +1,26 @@
 <?php
 
-include_once($_SERVER["DOCUMENT_ROOT"] . "/model/database.php");
+// include_once($_SERVER["DOCUMENT_ROOT"] . "/model/database.php");
 
 function getBookDetail($bookId) {
     global $mysqli;
 
-    $query="
-    SELECT book_id, title, author, description, image_link, AVG(rating) as rating
-    FROM review NATURAL JOIN orders RIGHT OUTER JOIN book USING (book_id)
-    WHERE book_id = " . $bookId . "
-    GROUP BY book.book_id; 
-    ";
+    $client = new SoapClient("http://localhost:8888/ws/book?wsdl");
+    $params = array("id" => $bookId);
+    // Convert stdClass to array using (array)
+    $response = (array) $client->__soapCall("getBookById", $params);
+    // echo json_encode($response);
+    // $query="
+    // SELECT book_id, title, author, description, image_link, AVG(rating) as rating
+    // FROM review NATURAL JOIN orders RIGHT OUTER JOIN book USING (book_id)
+    // WHERE book_id = " . $bookId . "
+    // GROUP BY book.book_id; 
+    // ";
     
-    $result = $mysqli->query($query);
+    // $result = $mysqli->query($query);
 
-    if ($result->num_rows > 0) {
-        return $result->fetch_assoc();
+    if ($response->num_rows > 0) {
+        return $response->fetch_assoc();
     } else {
         return null;
     }
