@@ -44,7 +44,7 @@
                                 <div class="image-holder"><img src="{{ searchResult.imageUrl }}"></div>
                                 <div class="left-text-holder">
                                         <h2>{{ searchResult.title }}</h2>
-                                        <div class="left-order-details"> <b>Author</b></div>
+                                        <div class="left-order-details"> <b>{{ searchResult.authors }}</b></div>
                                         <div class="left-order-details">{{ searchResult.description }}</div>
                                 </div>
                                 <div class="right-text-holder">
