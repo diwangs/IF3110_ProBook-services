@@ -1,9 +1,7 @@
 # Tugas Besar 2 IF3110 Pengembangan Aplikasi Berbasis Web
 
-
 ##Deskripsi Aplikasi
 
-![](temp/architecture.png)
 Pada tugas ini, kami melakukan *upgrade* Website toko buku online pada Tugas 1 dengan mengaplikasikan arsitektur web service **REST** dan **SOAP**. Arsitektur aplikasi diubah agar memanfaatkan 2 buah webservice, yaitu **webservice bank** dan *webservice buku**. Baik aplikasi maupun kedua webservice, masing-masing memiliki database sendiri.
 
 ### Webservice bank
