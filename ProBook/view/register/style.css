@@ -1,0 +1,109 @@
+h1 {
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Pathway Gothic One', sans-serif;
+    letter-spacing: 5px;
+    font-size: 60px;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+input {
+    border-style: groove;
+    font-family: inherit;
+}
+
+textarea {
+    resize: none;
+    overflow: auto;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+}
+
+td[colspan="2"] {
+    width: 250px;
+}
+
+.register-box {
+    background-image: url('/assets/images/login-register-background.jpg');
+    background-size: 300px;
+    border-bottom: 30px solid #04aeee;
+    border-top: 30px solid #04aeee;
+    border-left: 5px solid #04aeee;
+    border-right: 5px solid #04aeee;
+    border-radius: 5px;
+    padding: 20px;
+    width: fit-content;
+    width: -moz-fit-content;
+    margin: auto;
+}
+
+.form-label {
+    text-align: right;
+}
+
+.input-field-container {
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.register-button {
+    text-align: center;
+}
+.validation-icon {
+    display: inline-block;
+    width: 30px;
+}
+
+.validation-icon > img {
+    display: block;
+    margin: auto;
+    /* visibility: hidden; */
+}
+
+.validation-text {
+    vertical-align: text-top;
+    padding: 0%;
+    padding-left: 5px;
+    font-size: 9px;
+    color: red;
+}
+
+.error-message {
+    border: 1px solid #D9534F;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    margin: 20px;
+}
+
+#register-button {
+    border: 1px solid #F26600;
+    padding: 5px;
+    border-radius: 5px;
+    background: white;
+    color: rgb(242, 102, 0);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#login-button {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#address-label {
+    vertical-align: text-top;
+}
+
+#register-button {
+    width: fit-content;
+    width: -moz-fit-content;
+}

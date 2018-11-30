@@ -1,0 +1,30 @@
+.head-txt{
+    color:#F36404;
+}
+
+#search-bar{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    width: 100%;
+    border: 1px solid #898989;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.content > h1 {
+    margin-bottom: 20px;
+}
+
+input[type="submit"] {
+    float: right;
+    background-color: #04aeee;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 25px;
+    margin: 10px 0 0 20px;
+    cursor: pointer;
+}

@@ -1,0 +1,82 @@
+.pic-cont{
+    position: relative;
+    background: #00374C;
+    padding: 20px;
+}
+
+.content h2 {
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 30px;
+    color: rgb(242, 102, 0);
+}
+
+.content table {
+    width: 100%;
+}
+
+.content table td {
+    padding: 10px;
+    vertical-align: center;
+}
+
+.content table td:first-child {
+    width: 40%;
+}
+
+.content table td:first-child > img {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+div#edit-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px;
+}
+
+div#edit-button img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.inverted{
+    filter: invert(100%);
+}
+
+#but1{
+    height:50px;
+    width:50px;
+    background: #00374C;
+}
+
+#img-but1{
+    width: 100%;
+}
+
+#avatar-img{
+    display: block;
+    margin: auto;
+    border: 3px solid yellow;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+#fullname {
+    text-align: center;
+    color: white;
+}
+
+.white-font{
+    color:white;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}

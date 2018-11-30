@@ -1,0 +1,88 @@
+table {
+    width: 100%;
+}
+
+form {
+    position: relative;
+    height: fit-content;
+    padding-bottom: 60px;
+    margin: 10px 0;
+}
+
+input[type=text], input[type=tel], textarea {
+    font-family: "Open Sans", sans-serif;
+    width: 100%;
+}
+
+textarea {
+    height: 70px;
+    resize: none;
+}
+
+tr:first-child > td:first-child  {
+    border: 1px solid black;
+}
+
+tr:first-child > td:first-child > div > img {
+    display: block;
+    margin: auto;
+    object-fit: contain;
+    height: 130px;
+    width: 130px;
+}
+
+td:first-child {
+    width: 130px;
+    vertical-align: top;
+}
+
+td:last-child {
+    padding-left: 10px;
+}
+
+#back-button {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border: 1px solid #D9534F;
+    border-radius: 5px;
+    padding: 5px 15px;
+    color: #D9534F;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+#save-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-family: "Open Sans", sans-serif;
+    cursor: pointer;
+    border: 1px solid #04aeee;
+    border-radius: 5px;
+    background-color: #04aeee;
+    padding: 5px 15px;
+    color: white;
+    font-size: 20px;
+}
+
+#save-button:disabled {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: #CCCCCC;
+    border: 1px solid #CCCCCC;
+    color: #8b8b8b;
+    cursor: default;
+}
+
+.validation {
+    color: red;
+    font-size: 10px;
+}
+
+.hidden {
+    display: none;
+}
