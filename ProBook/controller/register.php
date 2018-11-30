@@ -31,7 +31,15 @@ function isEmailExist($email) {
     }
 }
 
-
+function generateRandomString($length) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 
 if (isset($_GET['username'])) {
     header('Content-Type: text/plain');
@@ -52,9 +60,12 @@ if (isset($_GET['email'])) {
 }
 
 if (isset($_POST["fullname"]) and  isset($_POST["username"]) and  isset($_POST["email"]) and isset($_POST["password"]) and isset($_POST["address"]) and isset($_POST["phonenumber"])) {
-    createUser($_POST["fullname"], $_POST["username"], $_POST["email"], $_POST["password"], $_POST["address"], $_POST["phonenumber"]);
+    createUser($_POST["fullname"], $_POST["username"], $_POST["email"], $_POST["password"], $_POST["address"], $_POST["phonenumber"], $_POST["cardnumber"]);
     $user = findUsernamePassword($_POST["username"], $_POST["password"]);
     $redirectLink = "/view/profile";
+    $token = generateRandomString(16);
+    setcookie("accessToken", $token, 0, "/");
+    storeToken($token, $user["user_id"]);
     setcookie("userId", $user["user_id"], 0, "/");
     header("Location: " . $redirectLink);
     exit();

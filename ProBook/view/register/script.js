@@ -1,7 +1,6 @@
 var xmlhttp = new XMLHttpRequest();
 let username_stat = '';
 let email_stat = '';
-var searchDelay = null
 
 function validateFullname() {
     var fullname = document.getElementById('fullname').value;
@@ -213,41 +212,23 @@ function validateCardnumber() {
     }
 }
 
-var cardnumber = document.getElementById('cardnumber');
+var cardnumber = document.getElementById('cardnumber').value;
 cardnumber.onchange = validateCardnumber;
-
-function validate(id) {
-    clearTimeout(searchDelay)
-    setTimeout(() => {
-        req = new XMLHttpRequest()
-        req.onload = () => {
-            console.log(JSON.parse(req.responseText).result)
-            // Apa yg dilakukan setelah mendapat jawaban
-            if (!JSON.parse(req.responseText).result) {
-                document.getElementById("isValid").innerHTML = "credit card number not found"
-                return false;
-            } else {
-                return true;
-            }
-        }
-        req.open("GET", "http://localhost:3000/api/validate_customer/" + encodeURIComponent(id), true)
-        req.send()
-    }, 1000)
-}
+console.log(cardnumber)
 
 var registerForm = document.querySelector('.register-form');
 
 registerForm.onsubmit = () => {
-    validateFullname();
-    validateUsername();
-    validateEmail();
-    validatePassword();
-    validateConfirmPassword();
-    validateAddress();
-    validatePhonenumber();
-    validateCardnumber();
-    validate(cardnumber);
-    if (! (validateFullname() && validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword() && validateAddress() && validatePhonenumber() && validateCardnumber()  && validate(cardnumber)) ) {
+    console.log('validate full name:' + validateFullname());
+    console.log('validate usern:' + validateUsername());
+    console.log('validate email:' + validateEmail());
+    console.log('validate pass:' + validatePassword());
+    console.log('validate confirm pass:' + validateConfirmPassword());
+    console.log('validate address:' + validateAddress());
+    console.log('validate phone num:' + validatePhonenumber());
+    console.log('validate card Num:' + validateCardnumber());
+    console.log('validate card num:' + isCardValid);
+    if (! (validateFullname() && validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword() && validateAddress() && validatePhonenumber() && validateCardnumber()  && isCardValid )) {
         return false;
     } else {
         return true;

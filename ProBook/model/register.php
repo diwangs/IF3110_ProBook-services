@@ -1,8 +1,8 @@
 <?php
 include_once($_SERVER["DOCUMENT_ROOT"] . "/model/database.php");
 
-function createUser($fullname, $username, $email, $password, $address, $phonenumber) {
-    $query = "INSERT INTO user (fullname, username, email, pass, addrs, phone_num) VALUES ('" . $fullname . "', '" . $username . "', '" . $email . "', '" . $password . "', '" . $address . "', '" . $phonenumber . "');"; 
+function createUser($fullname, $username, $email, $password, $address, $phonenumber, $cardnumber) {
+    $query = "INSERT INTO user (fullname, username, email, pass, addrs, phone_num, card_num) VALUES ('" . $fullname . "', '" . $username . "', '" . $email . "', '" . $password . "', '" . $address . "', '" . $phonenumber . "', '" . $cardnumber . "');"; 
     
     global $mysqli;
 
