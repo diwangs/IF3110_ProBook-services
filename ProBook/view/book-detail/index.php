@@ -26,11 +26,11 @@
         $bookPrice = "Rp " . number_format ($bookDetail["price"], 2 , "," ,  ".");
     }
 
-    $bookAvgRating = 0;
-    number_format(round((float) $bookDetail["rating"], 1, PHP_ROUND_HALF_UP), 1);
+    var_dump(getRating($bookId));
+    $bookAvgRating = number_format(round(getRating($bookId), 1, PHP_ROUND_HALF_UP), 1);
+    // var_dump($bookAvgRating);   
 
-    $bookStarRating = 0;
-    (int) $bookAvgRating;
+    $bookStarRating = (int) $bookAvgRating;
 
     function generateStarRating($nStar) {
         $retVal = '';
@@ -46,7 +46,7 @@
 
     $bookRatingView = '';
 
-    if ($bookDetail["rating"]) {
+    if ($bookAvgRating != 0) {
         $bookRatingView = '
         <div class="rating-star-holder">
             ' . generateStarRating($bookStarRating) . '
