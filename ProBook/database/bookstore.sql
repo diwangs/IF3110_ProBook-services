@@ -140,3 +140,12 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2018-10-25 13:47:06
+
+CREATE TABLE `active_token` (
+  `token` varchar(32),
+  `user_id` int(11),
+  `user_agent` varchar(255),
+  `ip_address` varchar(255),
+  `expiry_time` DATETIME,
+  PRIMARY KEY (`token`) 
+);

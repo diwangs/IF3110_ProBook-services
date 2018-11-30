@@ -6,6 +6,12 @@
             Username/Password is incorrect
         </div>
         ';
+    } else if (isset($_GET["expired"]) and $_GET["expired"] === 'true') {
+        $errorMessage = '
+        <div class="error-message">
+            Your session is expired
+        </div>
+        ';
     }
 ?>
 
