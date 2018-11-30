@@ -2,8 +2,7 @@
     include ($_SERVER["DOCUMENT_ROOT"] . "/model/login.php");
     include ($_SERVER["DOCUMENT_ROOT"] . "/model/book-detail.php");
     
-    if (!isset($_COOKIE["userId"])) {
-        header("Location: /view/login?auth=false");
+    if (!isTokenValid($_COOKIE['accessToken'])){
         exit();
     }
 

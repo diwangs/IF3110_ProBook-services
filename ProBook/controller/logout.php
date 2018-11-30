@@ -1,9 +1,10 @@
 <?php
+include($_SERVER["DOCUMENT_ROOT"] . "/model/logout.php");
 
-if (isset($_COOKIE['userId'])) {
-    unset($_COOKIE['userId']);
-    setcookie('userId', null, -1, '/');
-}
+deleteToken($_COOKIE['accessToken']);
+setcookie('userId', null, -1, '/');
+setcookie('accessToken', null, -1, '/');
 
 header("Location: /view/login");
 exit();
+?>

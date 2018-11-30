@@ -2,8 +2,7 @@
     include ($_SERVER["DOCUMENT_ROOT"] . "/model/profile.php");
     include ($_SERVER["DOCUMENT_ROOT"] . "/model/login.php");
 
-    if (!isset($_COOKIE["userId"])){
-        header("Location: /view/login?auth=false");
+    if (!isTokenValid($_COOKIE['accessToken'])){
         exit();
     }
 
