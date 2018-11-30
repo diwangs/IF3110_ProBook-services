@@ -1,3 +1,107 @@
+# Tugas Besar 2 IF3110 Pengembangan Aplikasi Berbasis Web
+
+Pada tugas ini, kami melakukan *upgrade* Website toko buku online pada Tugas 1 dengan mengaplikasikan arsitektur web service **REST dan SOAP**.
+
+## Struktur Basis Data
+
+Pada tugas ini, kami menggunakan sistem manajemen basis data MySQL. Pada setiap tabel, atribut *primary key* ditandai dengan atribut yang ditebalkan.
+
+### Basis Data pada Aplikasi *Bank Service*
+
+Terdapat dua tabel pada basis data *bank service*, yakni tabel **customer** dan tabel **tx** (transaction)
+
+#### Tabel Customer
+
+| Atribut | Tipe Atribut |
+|:-------:|----------------|
+| **id** | INT |
+| name | CHAR(255) |
+| balance | INT |
+
+#### Tabel Transaction
+
+| Atribut | Tipe Atribut |
+|:-------:|----------------|
+| **sender_id** | INT |
+| **receiver_id** | INT |
+| **tx_time** | DATETIME |
+| amount | INT |
+
+
+### Basis Data pada Aplikasi *Book Service*
+
+Terdapat dua tabel pada basis data *book service*, yakni tabel **book** dan tabel **book_category**
+
+#### Tabel Book
+
+| Atribut | Tipe Atribut |
+|:-------:|----------------|
+| **id** | VARCHAR(15) |
+| price | INT |
+| sale | INT |
+
+#### Tabel Book-Category
+
+| Atribut | Tipe Atribut |
+|:-------:|----------------|
+| **book_id** | VARCHAR(15) |
+| **category** | VARCHAR(255) |
+
+
+### Basis Data pada Aplikasi *ProBook*
+
+Terdapat dua tabel pada basis data *ProBook*, yakni tabel **order**, tabel **review**, tabel **user**, dan tabel **active_token**
+
+#### Tabel Order
+
+| Atribut | Tipe Atribut |
+|:-------:|----------------|
+| **order_id** | VARCHAR(15) |
+| user_id | INT |
+| book_id | INT |
+| num_book | INT |
+| order_date | DATE |
+
+#### Tabel Review
+
+| Atribut | Tipe Atribut |
+|:-------:|----------------|
+| ***order_id*** | INT |
+| rating | INT |
+| content | TEXT |
+
+#### Tabel User
+
+| Atribut | Tipe Atribut |
+|:-------:|----------------|
+| **user_id** | INT |
+| username | VARCHAR(20) |
+| fullname | VARCHAR(140) |
+| pass | VARCHAR(30) |
+| prof_pic | TEXT |
+| email | VARCHAR(100) |
+| addrs | VARCHAR(100) |
+| phone_num | VARCHAR(30) |
+| stat | INT |
+
+#### Tabel Active-Token
+
+| Atribut | Tipe Atribut |
+|:-------:|----------------|
+| **token** | VARCHAR(32) |
+| user_id | INT |
+| user_agent | VARCHAR(255) |
+| ip_address | VARCHAR(255) |
+| expiry_time | DATETIME |
+
+
+
+
+
+
+
+-------------------
+
 # Tugas 2 IF3110 Pengembangan Aplikasi Berbasis Web 
 
 Melakukan *upgrade* Website toko buku online pada Tugas 1 dengan mengaplikasikan **arsitektur web service REST dan SOAP**.
