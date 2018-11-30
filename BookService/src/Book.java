@@ -7,7 +7,7 @@ public class Book implements Serializable {
 
 	private static final long serialVersionUID = -5577579081118070434L;
 	private static final String GOOGLEBOOKAPIKEY_STRING = "AIzaSyCvpOMlOt-1GQqe_XYTi3w8XGNfBNVbU-k";
-	private static final int BOOKSTOREBANKID = 0;
+	private static final int BOOKSERVICEBANKID = 0;
 
 	private String id;
 	private String title;
@@ -181,7 +181,7 @@ public class Book implements Serializable {
 
 	public static Book[] constructBooks(JSONObject json) {
 		try {
-			if json.has("items") {
+			if (json.has("items")) {
 				JSONArray arr = json.getJSONArray("items");
 				Book[] books = new Book[arr.length()];
 				for (int i = 0; i < arr.length(); i++) {
@@ -210,7 +210,7 @@ public class Book implements Serializable {
 
 			JSONObject tx = new JSONObject();
 			tx.put("sender_id", userBankId);
-			tx.put("receiver_id", BOOKSTOREBANKID);
+			tx.put("receiver_id", BOOKSERVICEBANKID);
 			tx.put("amount", amount);
 
 			// Send post request
@@ -258,7 +258,7 @@ public class Book implements Serializable {
 	public static int updateBookSale(String bookId, int numOfBooks) {
 		try {
 			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/bookstore?autoReconnect=true&useSSL=false";
+			String myUrl = "jdbc:mysql://localhost/bookservice?autoReconnect=true&useSSL=false";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "12345678");
 
@@ -279,7 +279,7 @@ public class Book implements Serializable {
 	public static int getBookPrice(String bookId) {
 		try {
 			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/bookstore?autoReconnect=true&useSSL=false";
+			String myUrl = "jdbc:mysql://localhost/bookservice?autoReconnect=true&useSSL=false";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root", "12345678");
 

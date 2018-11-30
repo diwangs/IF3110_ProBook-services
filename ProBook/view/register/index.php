@@ -74,6 +74,14 @@
                 <td></td>
                 <td colspan="2" class="validation-text" id="phonenumber-validation-text"><!-- --></td>
             </tr>
+            <tr>
+                <td class="form-label"><label for="cardnumber">Card Number</label></td>
+                <td colspan="2"><input type="text" id="cardnumber" name="cardnumber" onchange="validate(this.value)"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2" class="validation-text" id="cardnumber-validation-text"><!-- --></td>
+            </tr>
         </table>
         <div id="login-button">
             <a href="/view/login">Already have an account?</a>

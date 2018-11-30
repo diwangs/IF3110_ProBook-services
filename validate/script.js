@@ -6,7 +6,9 @@ function validate(id) {
         req = new XMLHttpRequest()
         req.onload = () => {
             // Apa yg dilakukan setelah mendapat jawaban
-            document.getElementById("isValid").innerHTML = JSON.parse(req.responseText).result
+            if (!JSON.parse(req.responseText).result) {
+                document.getElementById("isValid").innerHTML = "credit card number not found"
+            }
         }
         req.open("GET", "http://localhost:3000/api/validate_customer/" + encodeURIComponent(id), true)
         req.send()
