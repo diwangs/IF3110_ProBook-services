@@ -1,6 +1,7 @@
 var xmlhttp = new XMLHttpRequest();
 let username_stat = '';
 let email_stat = '';
+var searchDelay = null
 
 function validateFullname() {
     var fullname = document.getElementById('fullname').value;
@@ -198,6 +199,42 @@ function validatePhonenumber() {
 var phonenumber = document.getElementById('phonenumber');
 phonenumber.onchange = validatePhonenumber;
 
+function validateCardnumber() {
+    var cardnumber = document.getElementById('cardnumber').value;
+    var cardnumberValidationText = document.getElementById('cardnumber-validation-text')
+    if (cardnumber.length === 0) {
+        cardnumberValidationText.innerHTML = 'This field is required';
+    } else if (!(/^[0-9]*$/.test(cardnumber))) {
+        cardnumberValidationText.innerHTML = 'Phone number must only contain number';
+        return false;
+    } else {
+        cardnumberValidationText.innerHTML = '';
+        return true;
+    }
+}
+
+var cardnumber = document.getElementById('cardnumber');
+cardnumber.onchange = validateCardnumber;
+
+function validate(id) {
+    clearTimeout(searchDelay)
+    setTimeout(() => {
+        req = new XMLHttpRequest()
+        req.onload = () => {
+            console.log(JSON.parse(req.responseText).result)
+            // Apa yg dilakukan setelah mendapat jawaban
+            if (!JSON.parse(req.responseText).result) {
+                document.getElementById("isValid").innerHTML = "credit card number not found"
+                return false;
+            } else {
+                return true;
+            }
+        }
+        req.open("GET", "http://localhost:3000/api/validate_customer/" + encodeURIComponent(id), true)
+        req.send()
+    }, 1000)
+}
+
 var registerForm = document.querySelector('.register-form');
 
 registerForm.onsubmit = () => {
@@ -208,7 +245,9 @@ registerForm.onsubmit = () => {
     validateConfirmPassword();
     validateAddress();
     validatePhonenumber();
-    if (! (validateFullname() && validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword() && validateAddress() && validatePhonenumber()) ) {
+    validateCardnumber();
+    validate(cardnumber);
+    if (! (validateFullname() && validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword() && validateAddress() && validatePhonenumber() && validateCardnumber()  && validate(cardnumber)) ) {
         return false;
     } else {
         return true;
