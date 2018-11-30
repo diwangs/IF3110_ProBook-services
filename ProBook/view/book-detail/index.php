@@ -26,8 +26,8 @@
         $bookPrice = "Rp " . number_format ($bookDetail["price"], 2 , "," ,  ".");
     }
 
-    var_dump(getRating($bookId));
-    $bookAvgRating = number_format(round(getRating($bookId), 1, PHP_ROUND_HALF_UP), 1);
+    // var_dump(getRating($bookId)["average"]));
+    $bookAvgRating = number_format(round(floatval(getRating($bookId)["average"]), 1, PHP_ROUND_HALF_UP), 1);
     // var_dump($bookAvgRating);   
 
     $bookStarRating = (int) $bookAvgRating;
@@ -133,7 +133,7 @@
     }
 
     $recommendedBook = getRandomBookByCategories($bookDetail["categories"]);
-    var_dump($bookDetail["categories"]);
+    // var_dump($bookDetail["categories"]);
 
     $bookRecommendationView = '';
 

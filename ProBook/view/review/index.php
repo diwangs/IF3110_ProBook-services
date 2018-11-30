@@ -19,10 +19,7 @@
     $orderId = $_GET["order-id"];
 
     $orderDetail = getOrderDetail($orderId);
-    var_dump($orderDetail);
     $bookDetail = getBookDetail($orderDetail["book_id"]);
-    echo "\n\n";
-    var_dump($bookDetail);
 
     $bookDetailView = '
     <div class="detail-holder">

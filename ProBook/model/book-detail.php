@@ -46,7 +46,7 @@ function getRating($bookId) {
     global $mysqli;
 
     $query="
-        SELECT AVG(review.rating) as average_rating
+        SELECT AVG(review.rating) as average, COUNT(review.rating) as count
         FROM review INNER JOIN orders USING (order_id)
         WHERE book_id = '" . $bookId . "' GROUP BY orders.book_id;
     ";
@@ -55,7 +55,7 @@ function getRating($bookId) {
     $result = $mysqli->query($query);
     // var_dump($result->fetch_assoc());
     // var_dump($result->fetch_assoc()["average_rating"]);
-    return floatval($result->fetch_assoc()["average_rating"]);
+    return $result->fetch_assoc();
 }
 
 function createOrder($userId, $bookId, $userBankId, $numBook) {
