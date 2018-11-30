@@ -226,7 +226,7 @@ body {
     flex-grow: 1;
     margin-left: 10px;
     margin-right: 25px;
-    padding-right: 25px;
+    padding-right: 60px;
 }
 
 .content .flex-container > div.right-text-holder > .detail-button > a {
