@@ -19,43 +19,54 @@
 
     $bookDetail = getBookDetail($bookId);
 
-    $bookAvgRating = number_format(round((float) $bookDetail["rating"], 1, PHP_ROUND_HALF_UP), 1);
-
-    $bookStarRating = (int) $bookAvgRating;
-
-    function generateStarRating($nStar) {
-        $retVal = '';
-        for ($i = 1; $i <= 5; $i++) {
-            if ($i <= $nStar) {
-                $retVal = $retVal . '<div><img class="rating-star" src="/assets/images/full-star-64.png"></div> ';
-            } else {
-                $retVal = $retVal . '<div><img class="rating-star" src="/assets/images/blank-star-64.png"></div> ';
-            }
-        }
-        return $retVal;
-    }
-
-    $bookRatingView = '';
-
-    if ($bookDetail["rating"]) {
-        $bookRatingView = '
-        <div class="rating-star-holder">
-            ' . generateStarRating($bookStarRating) . '
-        </div>
-        <div class="rating-number-holder">' . $bookAvgRating . ' / 5.0</div>';
+    $bookPrice = "";
+    if ($bookDetail["price"] < 0) {
+        $bookPrice = "Not for sale";
     } else {
-        $bookRatingView = '<div class="rating-number-holder">No review</div>';
+        $bookPrice = "Rp " . number_format ($bookDetail["price"], 2 , "," ,  ".");
     }
+    echo($bookDetail["price"]);
+
+    $bookAvgRating = 0;
+    // number_format(round((float) $bookDetail["rating"], 1, PHP_ROUND_HALF_UP), 1);
+
+    $bookStarRating = 0;
+    // (int) $bookAvgRating;
+
+    // function generateStarRating($nStar) {
+    //     $retVal = '';
+    //     for ($i = 1; $i <= 5; $i++) {
+    //         if ($i <= $nStar) {
+    //             $retVal = $retVal . '<div><img class="rating-star" src="/assets/images/full-star-64.png"></div> ';
+    //         } else {
+    //             $retVal = $retVal . '<div><img class="rating-star" src="/assets/images/blank-star-64.png"></div> ';
+    //         }
+    //     }
+    //     return $retVal;
+    // }
+
+    // $bookRatingView = '';
+
+    // if ($bookDetail["rating"]) {
+    //     $bookRatingView = '
+    //     <div class="rating-star-holder">
+    //         ' . generateStarRating($bookStarRating) . '
+    //     </div>
+    //     <div class="rating-number-holder">' . $bookAvgRating . ' / 5.0</div>';
+    // } else {
+        $bookRatingView = '<div class="rating-number-holder">No review</div>';
+    // }
 
     $bookDetailView = '
     <div class="detail-holder">
         <div class="book-title"><h1>' . $bookDetail["title"] . '</h1></div>
-        <div class="book-author"><h3>' . $bookDetail["author"] . '</h3></div>
+        <div class="book-author"><h3>' . $bookDetail["authors"] . '</h3></div>
         <div class="book-description">' . $bookDetail["description"] . '</div>
+        <div class="book-price"><h3>' . $bookPrice . '</h3></div>
     </div>
     <div class="right-object-holder">
         <div class ="image-holder">
-            <img src="' . $bookDetail["image_link"] . '">
+            <img src="' . $bookDetail["imageUrl"] . '">
         </div>
         ' . $bookRatingView . '
     </div>';
@@ -108,6 +119,7 @@
                     <div>
                         <input type='hidden' name='user-id' id='user-id' value='<?php echo $user["user_id"];?>'/>
                         <input type='hidden' name='book-id' id='book-id' value='<?php echo $bookId;?>'/>
+                        <input type='hidden' name='user-bank-id' id='user-bank-id' value=1/>
                         <div id="order-holder">
                             <h2>Order</h2>
                             Jumlah: 
@@ -145,7 +157,7 @@
                 <div class="flex-container">
                     <div class="check-img"><img src="/assets/images/checked.png" alt=""></div>
                     <div class="modal-text">
-                        <div><b>Pemesanan berhasil!</b></div>
+                        <div id="success-text"><b>Pemesanan berhasil!</b></div>
                         <div id="nomor-transaksi">Nomor transaksi : 3</div>
                     </div>
                 </div>

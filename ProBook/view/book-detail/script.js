@@ -5,8 +5,17 @@ let order_id = 0;
 function alertOrder() {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         order_id = xmlhttp.responseText;
-        order_text = 'Nomor transaksi : ' + order_id;
-        document.getElementById('nomor-transaksi').innerText = order_text;
+        console.log(typeof order_id)
+        console.log(order_id)
+        order_text = '';
+        if (order_id == 0) {
+            document.getElementById('success-text').innerText = 'Pemesanan gagal';
+            document.getElementById('nomor-transaksi').innerText = ' ';
+            order_text = 'Transaksi gagal';
+        } else {
+            document.getElementById('success-text').innerText = 'Pemesanan berhasil!';
+            document.getElementById('nomor-transaksi').innerText = 'Nomor transaksi : ' + order_id;
+        }
         document.getElementById('order-modal').style.display = "block";
     }
 }
@@ -20,6 +29,8 @@ function postOrder() {
     qry = qry + 'userid=' + userEncoded;
     var bookEncoded = encodeURIComponent(document.getElementById('book-id').value);
     qry = qry + '&bookid=' + bookEncoded;
+    var userBankEncoded = encodeURIComponent(document.getElementById('user-bank-id').value);
+    qry = qry + '&userbankid=' + userBankEncoded;
     var totalEncoded = encodeURIComponent(document.getElementById('total-order').value);
     qry = qry + '&totalorder=' + totalEncoded;
     
