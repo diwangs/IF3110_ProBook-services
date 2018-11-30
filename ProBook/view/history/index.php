@@ -1,6 +1,7 @@
 <?php
     include ($_SERVER["DOCUMENT_ROOT"] . "/model/login.php");
     include ($_SERVER["DOCUMENT_ROOT"] . "/model/history.php");
+    include ($_SERVER["DOCUMENT_ROOT"] . "/model/book-detail.php");
 
     if (!isTokenValid($_COOKIE['accessToken'])){
         exit();
@@ -17,12 +18,13 @@
     $historyList = getHistory($user["user_id"]);
     $historyView = '';
     while ($row = $historyList->fetch_assoc()) {
+        $bookDetail = getBookDetail($row["book_id"]);
         $historyView = $historyView . '
               <li>
                     <div class="list-content flex-container">
-                        <div class="image-holder"><a href="/view/book-detail?book-id=' . $row["book_id"] . '"><img src="' . $row["image_link"] . '"></a></div>
+                        <div class="image-holder"><a href="/view/book-detail?book-id=' . $row["book_id"] . '"><img src="' . $bookDetail["imageUrl"] . '"></a></div>
                         <div class="left-text-holder">
-                            <a href="/view/book-detail?book-id=' . $row["book_id"] . '"><h2>' . $row["title"] . '</h2></a>
+                            <a href="/view/book-detail?book-id=' . $row["book_id"] . '"><h2>' . $bookDetail["title"] . '</h2></a>
                             <div class="left-order-details">Jumlah ' . $row["num_book"] . '</div>
                             <div class="left-order-details">' . ((isset($row["rating"])) ? "Anda sudah memberikan review" : 'Belum direview') . '</div>
                         </div>
