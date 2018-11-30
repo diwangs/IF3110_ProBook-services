@@ -10,42 +10,14 @@ import javax.jws.WebService;
 //@HandlerChain(file="handler-chain.xml")
 public class BookServiceMethods implements BookServiceInterface {
 
-	private static Map<String,Book> books = new HashMap<String,Book>();
-	
 	@Override
-	public boolean addBook(Book book) {
-		if(books.get(book.getId()) != null) return false;
-		books.put(book.getId(), book);
-		return true;
-	}
-
-	@Override
-	public boolean deleteBook(String id) {
-		if(books.get(id) == null) return false;
-		books.remove(id);
-		return true;
-	}
-
-	@Override
-	public Book getBook(String id) {
-		return books.get(id);
-	}
-
-	@Override
-	public Book[] getAllBooks() {
-		Set<String> ids = books.keySet();
-		Book[] book = new Book[ids.size()];
-		int i=0;
-		for(String id : ids){
-			book[i] = books.get(id);
-			i++;
-		}
-		return book;
+	public Book getBookById(String id) {
+		return Book.constructBook(Book.retrieveBookById(id));
 	}
 
 	@Override
 	public Book[] getBooksByTitle(String title) {
-		return Book.createBooksUsingJSON(Book.retrieveGoogleApi(title.replace(" ", "+")));
+		return Book.constructBooks(Book.retrieveBooksByTitle(title.replace(" ", "+")));
 	}
 
 	@Override

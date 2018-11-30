@@ -9,17 +9,8 @@ import javax.jws.soap.SOAPBinding;
 public interface BookServiceInterface {
 
 	@WebMethod
-	public boolean addBook(Book book);
+	public Book getBookById(String id);
 	
-	@WebMethod
-	public boolean deleteBook(String id);
-	
-	@WebMethod
-	public Book getBook(String id);
-	
-	@WebMethod
-	public Book[] getAllBooks();
-
 	@WebMethod
 	public Book[] getBooksByTitle(String title);
 
