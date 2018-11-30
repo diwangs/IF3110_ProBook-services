@@ -13,7 +13,6 @@ function getBookDetail($bookId) {
 function getRandomBookByCategories($categories) {
     $client = new SoapClient("http://localhost:8888/ws/book?wsdl");
     $params = array("categories" => urlencode($categories));
-    echo urlencode($categories);
     // Convert stdClass to array using (array)
     $response = (array) $client->__soapCall("getRandomBookByCategories", $params);
     return $response;
@@ -32,7 +31,7 @@ function getBookReview($bookId) {
     $query="
         SELECT review.rating, review.content, user.username, user.prof_pic
         FROM review INNER JOIN orders USING (order_id) INNER JOIN user ON (user.user_id = orders.user_id)
-        WHERE book_id = " . $bookId . " ORDER BY order_date DESC;
+        WHERE book_id = '" . $bookId . "' ORDER BY order_date DESC;
     ";
     
     $result = $mysqli->query($query);
@@ -41,6 +40,22 @@ function getBookReview($bookId) {
         return null;
     }
     return $result;
+}
+
+function getRating($bookId) {
+    global $mysqli;
+
+    $query="
+        SELECT AVG(review.rating) as average, COUNT(review.rating) as count
+        FROM review INNER JOIN orders USING (order_id)
+        WHERE book_id = '" . $bookId . "' GROUP BY orders.book_id;
+    ";
+    
+
+    $result = $mysqli->query($query);
+    // var_dump($result->fetch_assoc());
+    // var_dump($result->fetch_assoc()["average_rating"]);
+    return $result->fetch_assoc();
 }
 
 function createOrder($userId, $bookId, $userBankId, $numBook) {
