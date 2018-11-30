@@ -2,6 +2,11 @@
 
 # Tugas Besar 2 IF3110 Pengembangan Aplikasi Berbasis Web
 
+### Persembahan dari:
+* 13516086 Dandy Arif Rahman
+* 13516098 Rifqi Rifaldi Utomo
+* 13516107 Senapati Sang Diwangkara
+
 ## Table Of Contents
 - [Deskripsi Aplikasi](#deskripsi-aplikasi)
 - [Perubahan Pada Aplikasi ProBook](#perubahan-pada-aplikasi-probook)
