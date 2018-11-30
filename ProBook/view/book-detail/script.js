@@ -11,10 +11,12 @@ function alertOrder() {
         if (order_id == 0) {
             document.getElementById('success-text').innerText = 'Pemesanan gagal';
             document.getElementById('nomor-transaksi').innerText = ' ';
+            document.getElementById('check-img').innerHTML = ' ';
             order_text = 'Transaksi gagal';
         } else {
             document.getElementById('success-text').innerText = 'Pemesanan berhasil!';
             document.getElementById('nomor-transaksi').innerText = 'Nomor transaksi : ' + order_id;
+            document.getElementById('check-img').innerHTML = '<img src="/assets/images/checked.png" alt="">';
         }
         document.getElementById('order-modal').style.display = "block";
     }

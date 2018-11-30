@@ -10,6 +10,15 @@ function getBookDetail($bookId) {
     return $response;
 }
 
+function getRandomBookByCategories($categories) {
+    $client = new SoapClient("http://localhost:8888/ws/book?wsdl");
+    $params = array("categories" => urlencode($categories));
+    echo urlencode($categories);
+    // Convert stdClass to array using (array)
+    $response = (array) $client->__soapCall("getRandomBookByCategories", $params);
+    return $response;
+}
+
 function createTransaction($bookId, $userBankId, $numOfBooks) {
     $client = new SoapClient("http://localhost:8888/ws/book?wsdl");
     $params = array("bookId" => $bookId, "userBankId" => $userBankId, "numOfBooks" => $numOfBooks);
